@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../public/assets/fontawesome/css/all.css">
+  <title>Navbar - Listas</title>
+</head>
+<style>
+  :root {
+    font-size: 16px;
+    font-family: 'Muli',sans-serif;
+    --text-primary: #141418;
+    --text-secondary: #23232e;
+    --bg-primary: #f3f3f3;
+    --bg-secondary: #b6b6b6;
+    --bg-tertiary: #e3e3e3;
+    --icon-primary: #317cd8;
+    --transition-speed: 600ms;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-user-select: auto;
+  }
+  body {
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
+    margin: 0;
+    padding: 0;
+  }
+  body.open {
+    overflow: hidden;
+  }
+  body::-webkit-scrollbar {
+    width: 0.25rem;
+  }
+  body::-webkit-scrollbar-track {
+    background-color: var(--bg-tertiary);
+  }
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--bg-secondary);
+  }
+  .input {
+    width: 100%;
+    background-color: transparent;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 2px solid var(--icon-primary);
+    font-family: 'Muli', sans-serif;
+    font-size: 1rem;
+    padding: 0px 0px 5px 10px;
+    outline: none;
+  }
+  ::placeholder {
+    color: var(--text-primary);
+  }
+
+  .navbar {
+    /*background-color: var(--bg-primary);*/
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+  }
+  .navbar__search {
+    cursor: pointer;
+    color: var(--icon-primary);
+    margin: 0 1rem;
+    display: flex;
+  }
+  .navbar__search .fa-hand-point-left {
+    visibility: hidden;
+    transform: rotate(-180deg);
+    width: 0;
+    transition: visibility 0ms, transform 300ms linear 0ms;
+  }
+  .navbar__search .fa-hand-point-left.view {
+    width: auto;
+    visibility: visible;
+    transform: rotate(-360deg);
+  }
+  .navbar__search .fa-search {
+    width: auto;
+    visibility: visible;
+    transform: rotate(0deg);
+    transition: visibility 0ms, transform 300ms linear 0ms;
+  }
+  .navbar__search .fa-search.hide {
+    width: 0;
+    visibility: hidden;
+    transform: rotate(-180deg);
+  }
+  .navbar__input {
+    width: 0%;
+    overflow: hidden;
+    transition: var(--transition-speed);
+    pointer-events: none;
+  }
+  .navbar__input.view {
+    pointer-events: all;
+    margin-right: 1rem;
+    width: 100%;
+  }
+  .navbar__title {
+    width: 100%;
+    overflow: hidden;
+    transition: var(--transition-speed);
+  }
+  .navbar__title.hide {
+    width: 0%;
+  }
+  .navbar__menu {
+    cursor: pointer;
+    color: var(--icon-primary);
+    margin-left: auto;
+    margin-right: 1rem;
+    z-index: 6;
+  }
+  .navbar__menu i {
+    transform: rotate(0deg);
+    transition: var(--transition-speed);
+  }
+  .navbar__menu i.open{
+    color: var(--bg-primary);
+    transform: rotate(180deg);
+  }
+  .navbar__nav {
+    background-color: var(--icon-primary);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    list-style: none;
+    pointer-events: none;
+    z-index: 5;
+    clip-path: circle(50px at 100%-10%);
+    transition: all var(--transition-speed) ease-out;
+  }
+  .navbar__nav.open {
+    clip-path: circle(950px at 100%-10%);
+    pointer-events: all;
+    color: var(--bg-primary);
+  }
+  .navbar__nav--item {
+    opacity: 0;
+  }
+  .navbar__nav--item a {
+    font-size: 1.5rem;
+    color: var(--bg-primary);
+    text-decoration: none;
+  }
+  .navbar__nav--item:nth-child(1) {
+    transition: all 0.5s ease 0.1s;
+  }
+  .navbar__nav--item:nth-child(2) {
+    transition: all 0.5s ease 0.25s;
+  }
+  .navbar__nav--item:nth-child(3) {
+    transition: all 0.5s ease 0.4s;
+  }
+  .navbar__nav--item.fade {
+    opacity: 1;
+  }
+  main {
+    padding: 0 15px;
+    text-align: justify;
+    margin-bottom: 5.25rem;
+  }
+  main h1 {
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  .btn_add {
+    padding: 10px;
+    border: none;
+    outline: none;
+    user-select: none;
+    cursor: pointer;
+    background: var(--icon-primary);
+    color: var(--bg-primary);
+    border-radius: 50%;
+    width: 3.2rem;
+    height: 3.2rem;
+    font-size: 2rem;
+    line-height: 0;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    box-shadow: 3px 3px 9px 1px #a6a6a6;
+    z-index: 3;
+  }
+
+  .modal {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    list-style: none;
+    pointer-events: none;
+    z-index: 10;
+    background-color: #6a6a6aa3;
+    transform: translateY(-100vh);
+    transition: var(--transition-speed);
+  }
+  .modal.open {
+    pointer-events: all;
+    visibility: visible;
+    transform: translate(0);
+  }
+  .modal__add {
+    background-color: var(--bg-primary);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: .5rem 1rem;
+  }
+  .modal__add--title {
+    color: #8e8e8e;
+    font-size: .8rem;
+    margin-bottom: 2rem;
+  }
+  .modal__add--menu {
+    list-style: none;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #8e8e8e;
+  }
+  .modal__add--menu:last-child {
+    margin: 0;
+    border: none;
+  }
+  .modal__add--menu:last-child li {
+    margin-bottom: .5rem;
+  }
+  .modal__add--menu li {
+    margin-bottom: 1.5rem;
+  }
+  .modal__add--menu li a {
+    color: var(--text-primary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  .modal__add--menu li a i {
+    font-size: 1.5rem;
+    color: var(--icon-primary);
+    text-decoration: none;
+  }
+  .modal__add--menu li a span {
+    margin-left: 1rem;
+  }
+</style>
+<body>
+  <nav class="navbar">
+    <div class="navbar__search">
+      <i class="far fa-hand-point-left"></i>
+      <i class="fas fa-search"></i>
+    </div>
+    <div class="navbar__input">
+      <input class="input" type="text" placeholder="Buscar...">
+    </div>
+    <div class="navbar__title">
+      <h1>Usuarios</h1>
+    </div>
+    <div class="navbar__menu">
+      <i class="fas fa-bars"></i>
+    </div>
+    <ul class="navbar__nav">
+      <li class="navbar__nav--item">
+        <a href="#">
+          <i class="fas fa-cash-register"></i>
+          <span class="link-text">Caja</span>
+        </a>
+      </li>
+      <li class="navbar__nav--item">
+        <a href="#">
+          <i class="fas fa-user"></i>
+          <span class="link-text">Perfil</span>
+        </a>
+      </li>
+      <li class="navbar__nav--item">
+        <a href="#">
+          <i class="fas fa-table"></i>
+          <span class="link-text">Mesas</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <button class="btn_add">+</button>
+  <section class="modal">
+    <article class="modal__add">
+      <h3 class="modal__add--title">Añadir a Restaurante</h3>
+
+      <ul class="modal__add--menu">
+        <li>
+          <a href="#">
+            <i class="fas fa-table"></i>
+            <span>Joder</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-table"></i>
+            <span>Joder</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-table"></i>
+            <span>Joder</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="modal__add--menu">
+        <li>
+          <a href="#">
+            <i class="fas fa-table"></i>
+            <span>Mierda</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-table"></i>
+            <span>Mierda</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fas fa-table"></i>
+            <span>Mierda</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="modal__add--menu">
+        <li>
+          <a href="#">
+            <i class="fas fa-table"></i>
+            <span>La puta Marta</span>
+          </a>
+        </li>
+      </ul>
+    </article>
+  </section>
+
+  <main>
+    <h1>Usuarios</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis reiciendis illum quisquam magnam dolores modi eveniet et beatae, corrupti voluptate quam cumque labore aspernatur error nemo similique deserunt nisi accusamus!
+    Modi aliquam eum repellendus magnam voluptates. Tempora esse possimus dolor quas deleniti! Sequi accusamus temporibus blanditiis, aliquid ducimus, omnis nulla, quisquam maxime quos sint dolores nihil eveniet rem facilis voluptatum!
+    Pariatur facilis eos hic dolorum veniam at nesciunt, placeat explicabo mollitia, similique dicta inventore illum cumque molestias nisi sed voluptate vitae. Tempora, dolore soluta sed quisquam recusandae ad aliquam iure.
+    Eius impedit ipsum facilis nobis harum velit a quasi aut at architecto, hic perferendis sit debitis tenetur tempora soluta aperiam ducimus, earum obcaecati quos labore aliquid consequuntur repellat doloribus! Aliquam!
+    Ab eos ipsam suscipit beatae veniam id commodi distinctio saepe? Eos laudantium, voluptatibus dignissimos accusamus vitae officiis! Mollitia voluptatum, eum architecto iure ducimus quibusdam aut explicabo vero quisquam. Veritatis, illo.
+    Ut accusantium dicta perferendis temporibus commodi a non error perspiciatis porro dolore! Dolor nostrum odit ducimus, sint labore eveniet nobis quis facilis vero impedit, consequuntur maxime neque illo esse nisi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis reiciendis illum quisquam magnam dolores modi eveniet et beatae, corrupti voluptate quam cumque labore aspernatur error nemo similique deserunt nisi accusamus!
+      Modi aliquam eum repellendus magnam voluptates. Tempora esse possimus dolor quas deleniti! Sequi accusamus temporibus blanditiis, aliquid ducimus, omnis nulla, quisquam maxime quos sint dolores nihil eveniet rem facilis voluptatum!
+      Pariatur facilis eos hic dolorum veniam at nesciunt, placeat explicabo mollitia, similique dicta inventore illum cumque molestias nisi sed voluptate vitae. Tempora, dolore soluta sed quisquam recusandae ad aliquam iure.
+      Eius impedit ipsum facilis nobis harum velit a quasi aut at architecto, hic perferendis sit debitis tenetur tempora soluta aperiam ducimus, earum obcaecati quos labore aliquid consequuntur repellat doloribus! Aliquam!
+      Ab eos ipsam suscipit beatae veniam id commodi distinctio saepe? Eos laudantium, voluptatibus dignissimos accusamus vitae officiis! Mollitia voluptatum, eum architecto iure ducimus quibusdam aut explicabo vero quisquam. Veritatis, illo.
+      Ut accusantium dicta perferendis temporibus commodi a non error perspiciatis porro dolore! Dolor nostrum odit ducimus, sint labore eveniet nobis quis facilis vero impedit, consequuntur maxime neque illo esse nisi.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis reiciendis illum quisquam magnam dolores modi eveniet et beatae, corrupti voluptate quam cumque labore aspernatur error nemo similique deserunt nisi accusamus!
+      Modi aliquam eum repellendus magnam voluptates. Tempora esse possimus dolor quas deleniti! Sequi accusamus temporibus blanditiis, aliquid ducimus, omnis nulla, quisquam maxime quos sint dolores nihil eveniet rem facilis voluptatum!
+      Pariatur facilis eos hic dolorum veniam at nesciunt, placeat explicabo mollitia, similique dicta inventore illum cumque molestias nisi sed voluptate vitae. Tempora, dolore soluta sed quisquam recusandae ad aliquam iure.
+      Eius impedit ipsum facilis nobis harum velit a quasi aut at architecto, hic perferendis sit debitis tenetur tempora soluta aperiam ducimus, earum obcaecati quos labore aliquid consequuntur repellat doloribus! Aliquam!
+      Ab eos ipsam suscipit beatae veniam id commodi distinctio saepe? Eos laudantium, voluptatibus dignissimos accusamus vitae officiis! Mollitia voluptatum, eum architecto iure ducimus quibusdam aut explicabo vero quisquam. Veritatis, illo.
+      Ut accusantium dicta perferendis temporibus commodi a non error perspiciatis porro dolore! Dolor nostrum odit ducimus, sint labore eveniet nobis quis facilis vero impedit, consequuntur maxime neque illo esse nisi.</p>
+  </main>
+
+  <script>
+    const body = document.querySelector('body')
+    const menu = document.querySelector('.navbar__menu')
+    const navbarTitle = document.querySelector('.navbar__title')
+    const navbarInput = document.querySelector('.navbar__input')
+    const navbarNav = document.querySelector('.navbar__nav')
+    const navItem = document.querySelectorAll('.navbar__nav--item')
+    const search = document.querySelector('.navbar__search')
+    const btnAdd = document.querySelector('.btn_add')
+    const modal = document.querySelector('.modal')
+
+    body.addEventListener('click', _ => {
+      body.classList.remove('open')
+
+      navbarTitle.classList.remove('hide')
+      navbarInput.classList.remove('view')
+      search.childNodes[1].classList.remove('view')
+      search.childNodes[3].classList.remove('hide')
+
+      modal.classList.remove('open')
+    })
+
+    menu.addEventListener('click', e => {
+      e.stopPropagation()
+      navbarNav.classList.toggle('open')
+      menu.childNodes[1].classList.toggle('open')
+      body.classList.toggle('open')
+      navItem.forEach(item => {
+        item.classList.toggle('fade')
+      })
+    })
+    navbarNav.addEventListener('click', e => {
+      e.stopPropagation()
+    })
+
+    search.addEventListener('click', e => {
+      e.stopPropagation()
+      navbarTitle.classList.toggle('hide')
+      navbarInput.classList.toggle('view')
+      search.childNodes[1].classList.toggle('view')
+      search.childNodes[3].classList.toggle('hide')
+    })
+    navbarInput.addEventListener('click', e => {
+      e.stopPropagation()
+    })
+
+    modal.childNodes[1].addEventListener('click', e => {
+      e.stopPropagation()
+    })
+    btnAdd.addEventListener('click', e => {
+      e.stopPropagation()
+      modal.classList.toggle('open')
+    })
+  </script>
+</body>
+</html>
+
+<!--
+fas fa-cash-register
+fas fa-blender
+fas fa-wine-bottle
+fas fa-beer
+fas fa-concierge-bell
+fas fa-user-check
+fas fa-users
+fas fa-user
+fas fa-people-carry
+fas fa-mug-hot
+fas fa-box
+fas fa-box-open
+file-signature
+file-contract
+shield-alt
+user-shield
+user-cog
+folder-open
+folder-plus
+cloud-meatball
+tasks
+sliders-h
+
+file-excel
+dice-d6
+fist-raised
+scroll
+receipt
+border-all
+table
+chart-bar
+chart-pie
+chart-line
+chair
+hand-holding-usd
+
+utensils
+hamburger
+cheese
+egg
+bread-slice
+apple-alt
+-->

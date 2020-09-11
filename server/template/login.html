@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+  <!-- Title -->
+  <title>Login</title>
+</head>
+<style>
+  body {
+    margin: 0px;
+    font-family: 'Muli', sans-serif;
+  }
+  a:link, a:visited, a:active {
+    border: none;
+    outline: none;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #21c08b;
+    color: white;
+    height: 100px;
+    top: 0;
+    width: 100%;
+  }
+  .header__img{
+    margin-left: 30px;
+    width: 200px;
+  }
+
+  .login {
+    background: linear-gradient(#21c08b, #ab88ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0px 30px;
+    min-height: calc(100vh - 200px);
+  }
+  .login__container {
+    border-radius: 40px;
+    color: white;
+    min-height: 700px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
+  .login__container--form {
+    display: flex;
+    flex-direction: column;
+  }
+  .login__container--form {
+    font-size: 14px;
+  }
+  .login__container--remember-me {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  .login__container--remember-me label {
+    display: flex;
+    align-items: center;
+  }
+  .login__container--remember-me input[type="checkbox"] {
+    margin: 0px 3px 0px 0px;
+  }
+  .login__container--remember-me a {
+    color: white;
+    text-decoration: none;
+  }
+  .login__container--remember-me a:hover {
+    text-decoration: underline;
+  }
+  .login__container--social-media > div {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .login__container--social-media > div > img {
+    width: 30px;
+    margin-right: 10px;
+  }
+  .login__container--register {
+    font-size: 14px;
+  }
+  .login__container--register a {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .login__container--register a:hover {
+    text-decoration: underline;
+  }
+  .input {
+    background-color: transparent;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 2px solid white;
+    font-family: 'Muli', sans-serif;
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 0px 20px;
+    outline: none;
+    height: 50px;
+  }
+  ::placeholder {
+    color: white;
+  }
+  .button {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Muli', sans-serif;
+    height: 50px;
+    letter-spacing: 1px;
+    margin: 10px 0px;
+  }
+
+  .footer {
+    background-color: #ab88ff;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-top: 1px solid white;
+    height: 100px;
+    width: 100%;
+  }
+  .footer a {
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding-left: 30px;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media only screen and (min-width: 600px) {
+    .login__container {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid white;
+      padding: 60px 68px 40px;
+      width: 300px;
+    }
+    .footer {
+      flex-direction: row;
+      justify-content: flex-start;
+      border: none;
+    }
+  }
+</style>
+<body>
+  <header class="header">
+    <img class="header__img" src="../public/assets/img/logo-platzi-video-BW2.png" alt="Platzi Video">
+  </header>
+
+  <section class="login">
+    <section class="login__container">
+      <h2>Inicia sesión</h2>
+      <form class="login__container--form">
+        <input class="input" type="text" placeholder="Correo">
+        <input class="input" type="password" placeholder="Contraseña">
+        <button class="button">Iniciar sesión</button>
+        <div class="login__container--remember-me">
+          <label>
+            <input type="checkbox" id="cbox1" value="checkbox"> Recordar Sesión
+          </label>
+          <a href="">Olvidé mi contraseña</a>
+        </div>
+      </form>
+      <section class="login__container--social-media">
+        <div><img src="../public/assets/img/icons8-google-plus-50.png" alt="Google">Inicia sesión con Google</div>
+        <div><img src="../public/assets/img/icons8-twitter-50.png" alt="Twitter">Inicia sesión con Twitter</div>
+      </section>
+      <p class="login__container--register">¿No tienes ninguna cuenta? <a href="">Regístrate</a></p>
+    </section>
+  </section>
+
+  <footer class="footer">
+    <a href="/">Términos de uso</a>
+    <a href="/">Declaración de privacidad</a>
+    <a href="/">Centro de ayuda</a>
+  </footer>
+</body>
+</html>
