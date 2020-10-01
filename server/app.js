@@ -1,7 +1,12 @@
 import express from 'express'
 import path from 'path'
 import boom from 'boom'
-/*import { nameModuleRouter } from './routes'*/
+import { 
+  menuRouter,
+  productsRouter,
+  shoppingRouter,
+  usersRouter
+} from './routes'
 import isRequestAjaxOrAPI from './utils/isRequestAjaxOrAPI'
 import { config } from './config'
 import livereload from 'livereload'
@@ -39,7 +44,10 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 // Routes
-/*app.use('/route', nameModuleRouter)*/
+menuRouter(app)
+productsRouter(app)
+shoppingRouter(app)
+usersRouter(app)
 
 // Main Route
 app.get('/', (req, res, next) => {

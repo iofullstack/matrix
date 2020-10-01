@@ -1,5 +1,71 @@
+link(rel="stylesheet" href="/static/assets/css/navbar.css")
+
 nav.navbar
-  ul.navbar-nav
-    li.logo
-      a.nav-link(href="#")
-        span.link-text.logo-text Fireship
+  .navbar__search
+    span.icon-hand
+      i.far.fa-hand-point-left
+    span.icon-search
+      i.fas.fa-search
+  .navbar__input
+    .input(type='text' placeholder='Buscar...')
+  .navbar__title
+    h1 Joder la puta
+  .navbar__menu
+    span.icon-menu
+      i.fas.fa-bars
+  ul.navbar__nav
+    li.navbar__nav--item
+      a(href='#')
+        i.fas.fa-receipt
+        span.link-text Menú
+    li.navbar__nav--item
+      a(href='#')
+        i.fas.fa-feather-alt
+        span.link-text Pedidos
+    li.navbar__nav--item
+      a(href='#')
+        i.fas.fa-file-signature
+        span.link-text Almacén
+    li.navbar__nav--item
+      a(href='#')
+        i.fas.fa-shopping-cart
+        span.link-text Compras
+    li.navbar__nav--item
+      a(href='#')
+        i.fas.fa-people-carry
+        span.link-text Empleados
+    li.navbar__nav--item
+      a(href='#')
+        i.fas.fa-utensils
+        span.link-text Cocina
+    li.navbar__nav--item
+      a(href='#')
+        i.fas.fa-file-excel
+        span.link-text Reportes
+
+  button.btn_add +
+  section.modal
+    if menu
+      article.modal__add
+        h3.modal__add--title= menu.title
+        ul.modal__add--menu
+          each el in menu.lists
+            li
+              a(href=`${el.link}`)
+                i.fas(class=el.icon)
+                span= el.action
+        ul.modal__add--menu
+          each el in menu.records
+            li
+              a(href=`${el.link}`)
+                i.fas(class=el.icon)
+                span= el.action
+        ul.modal__add--menu
+          li
+            a(href='#')
+              i.fas.fa-table
+              span Subir archivo...
+    else
+      article.modal__add
+
+script(defer src="/static/assets/js/navbar.js")
