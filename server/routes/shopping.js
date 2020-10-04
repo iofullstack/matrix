@@ -7,7 +7,7 @@ function routesApi(app) {
   // Statement and Instances
   const router = express.Router()
   app.use(router)
-  
+
   router.get('/compras', async (req, res, next) => {
     try {
       const menu = [
