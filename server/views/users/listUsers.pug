@@ -1,4 +1,35 @@
 extends ../layout
 
 block content
-  h2 Listar Empleados
+  h2= menu.title
+
+  section.lista
+    .lista__orden
+      select
+        option(value="name" selected) Nombre
+        option(value="date") Fecha
+      span.icon-1
+        i.fas.fa-border-all
+      span.icon-2
+        i.fas.fa-list-ul
+    ul.lista__vista
+      li.lista__vista--item
+        a(href="#")
+          div
+            span Alycia Kunde
+            i.fas.fa-circle
+      li.lista__vista--item
+        a(href="#")
+          div
+            span Elisa Doyle
+            i.far.fa-circle
+      li.lista__vista--item
+        a(href="#")
+          div
+            span Britney Reichel
+            i.fas.fa-circle
+      li.lista__vista--item
+        a(href="#")
+          div
+            span Julianne Murray
+            i.far.fa-circle

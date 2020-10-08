@@ -1,4 +1,7 @@
 export { default as menuRouter } from './menu'
-export { default as productsRouter } from './products'
+export { default as ordersRouter } from './orders'
+export { default as warehouseRouter } from './warehouse'
 export { default as shoppingRouter } from './shopping'
 export { default as usersRouter } from './users'
+export { default as kitchenRouter } from './kitchen'
+export { default as reportsRouter } from './reports'

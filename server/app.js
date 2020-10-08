@@ -1,13 +1,17 @@
 import express from 'express'
 import path from 'path'
 import boom from 'boom'
-import { 
+import {
   menuRouter,
-  productsRouter,
+  ordersRouter,
+  warehouseRouter,
   shoppingRouter,
-  usersRouter
+  usersRouter,
+  kitchenRouter,
+  reportsRouter
 } from './routes'
 import isRequestAjaxOrAPI from './utils/isRequestAjaxOrAPI'
+import { permitsMiddleware } from './utils/middlewares/userPermits'
 import { config } from './config'
 import livereload from 'livereload'
 import connectLivereload from 'connect-livereload'
@@ -45,14 +49,18 @@ app.set('view engine', 'pug')
 
 // Routes
 menuRouter(app)
-productsRouter(app)
+ordersRouter(app)
+warehouseRouter(app)
 shoppingRouter(app)
 usersRouter(app)
+kitchenRouter(app)
+reportsRouter(app)
 
 // Main Route
-app.get('/', (req, res, next) => {
+app.get('/', permitsMiddleware, (req, res, next) => {
+  const { menu, sub_menu } = req
   try {
-    res.render('layout', { dev: config.dev })
+    res.render('layout', { dev: config.dev, menu, sub_menu })
   } catch(err) {
     next(err)
   }

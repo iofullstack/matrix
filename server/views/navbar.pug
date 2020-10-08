@@ -1,5 +1,3 @@
-link(rel="stylesheet" href="/static/assets/css/navbar.css")
-
 nav.navbar
   .navbar__search
     span.icon-hand
@@ -9,63 +7,27 @@ nav.navbar
   .navbar__input
     .input(type='text' placeholder='Buscar...')
   .navbar__title
-    h1 Joder la puta
+    h1= menu.title
   .navbar__menu
     span.icon-menu
       i.fas.fa-bars
   ul.navbar__nav
-    li.navbar__nav--item
-      a(href='#')
-        i.fas.fa-receipt
-        span.link-text Menú
-    li.navbar__nav--item
-      a(href='#')
-        i.fas.fa-feather-alt
-        span.link-text Pedidos
-    li.navbar__nav--item
-      a(href='#')
-        i.fas.fa-file-signature
-        span.link-text Almacén
-    li.navbar__nav--item
-      a(href='#')
-        i.fas.fa-shopping-cart
-        span.link-text Compras
-    li.navbar__nav--item
-      a(href='#')
-        i.fas.fa-people-carry
-        span.link-text Empleados
-    li.navbar__nav--item
-      a(href='#')
-        i.fas.fa-utensils
-        span.link-text Cocina
-    li.navbar__nav--item
-      a(href='#')
-        i.fas.fa-file-excel
-        span.link-text Reportes
+    each m in menu.menu
+      li.navbar__nav--item
+        a(href=`${m.link}`)
+          i.fas(class=m.icon)
+          span.link-text= m.content
 
   button.btn_add +
   section.modal
-    if menu
-      article.modal__add
-        h3.modal__add--title= menu.title
+    article.modal__add
+      h3.modal__add--title= menu.title
+      each sm in sub_menu
         ul.modal__add--menu
-          each el in menu.lists
+          each em in sm
             li
-              a(href=`${el.link}`)
-                i.fas(class=el.icon)
-                span= el.action
-        ul.modal__add--menu
-          each el in menu.records
-            li
-              a(href=`${el.link}`)
-                i.fas(class=el.icon)
-                span= el.action
-        ul.modal__add--menu
-          li
-            a(href='#')
-              i.fas.fa-table
-              span Subir archivo...
-    else
-      article.modal__add
+              a(href=`${em.link}`)
+                i.fas(class=em.icon)
+                span= em.content
 
 script(defer src="/static/assets/js/navbar.js")

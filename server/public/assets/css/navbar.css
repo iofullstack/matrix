@@ -52,6 +52,7 @@
   width: 100%;
   overflow: hidden;
   transition: var(--transition-speed);
+  text-transform: uppercase;
 }
 .navbar__title.hide {
   width: 0%;

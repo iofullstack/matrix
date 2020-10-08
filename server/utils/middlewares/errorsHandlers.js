@@ -23,7 +23,7 @@ function wrapErrors(err, req, res, next) {
 
 function clientErrorHandler(err, req, res, next) {
   const {
-    output: { statusCode, payload}
+    output: { statusCode, payload }
   } = err
   // catch errors for AJAX request or if an error ocurrs while streaming
   if(isRequestAjaxOrAPI(req) || res.headersSent) {

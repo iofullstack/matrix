@@ -9,10 +9,10 @@ function routesApi(app) {
   const router = express.Router()
   app.use(router)
 
-  router.get('/menu', permitsMiddleware, async (req, res, next) => {
+  router.get('/almacen', permitsMiddleware, async (req, res, next) => {
     const { menu, sub_menu } = req
     try {
-      res.render('menu/listMenu', { dev: config.dev, menu, sub_menu })
+      res.render('warehouse/listProducts', { dev: config.dev, menu, sub_menu })
     } catch(err) {
       next(err)
     }

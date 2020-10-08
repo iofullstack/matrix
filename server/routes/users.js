@@ -1,6 +1,7 @@
 // Global modules
 import express from 'express'
 // Local modules
+import { permitsMiddleware } from '../utils/middlewares/userPermits'
 import { config } from '../config'
 
 function routesApi(app) {
@@ -8,15 +9,10 @@ function routesApi(app) {
   const router = express.Router()
   app.use(router)
 
-  router.get('/empleados', async (req, res, next) => {
+  router.get('/empleados', permitsMiddleware, async (req, res, next) => {
+    const { menu, sub_menu, url } = req
     try {
-      const menu = [
-        { action: 'Listar Empleados', link: '/empleados'},
-        { action: 'Listar Facturas', link: '/facturas'},
-        { action: 'Listar Proveedores', link: '/proveedores'}
-      ]
-
-      res.render('users/listUsers', { menu, dev: config.dev })
+      res.render('users/listUsers', { dev: config.dev, menu, sub_menu, enlace: url.substring(1) })
     } catch(err) {
       next(err)
     }
