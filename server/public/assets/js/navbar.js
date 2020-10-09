@@ -11,13 +11,13 @@ const modal = document.querySelector('.modal')
 body.addEventListener('click', _ => {
   body.classList.remove('open')
 
+  modal.classList.remove('open')
+
   navbarTitle.classList.remove('hide')
   navbarInput.classList.remove('view')
 
   search.childNodes[0].classList.remove('view')
   search.childNodes[1].classList.remove('hide')
-
-  modal.classList.remove('open')
 })
 
 menu.addEventListener('click', e => {
